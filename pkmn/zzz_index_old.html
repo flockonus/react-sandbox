@@ -1,0 +1,103 @@
+<head>
+  <script src="jquery-3.1.1.js"></script>
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+  td {
+    width: 68px;
+    height: 68px;
+    padding: 3px;
+    background: #7b7bef;
+  }
+  </style>
+</head>
+<body>
+  <table border="1" id="board">
+    <tr>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+    </tr>
+    <tr>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+    </tr>
+    <tr>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+    </tr>
+    <tr>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+    </tr>
+    <tr>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+    </tr>
+    <tr>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+      <td><img width="64px"></td>
+    </tr>
+  </table>
+<script>
+var linhas = [0, 1, 2, 3, 4, 5, 6]
+var colunas = [0, 1, 2, 3, 4, 5, 6]
+// indexa todas 64 celulas, de [0][0] ... [5][5]
+var cels = [];
+function indexaCelulas() {
+  linhas.forEach(function(row) {
+    cels[row] = [];
+    colunas.forEach(function(col) {
+      cels[row][col] = $('tr:eq('+row+') td:eq('+col+') img');
+    })
+  })
+}
+// retorna numero de 0 - 3
+function indiceAleatorio() {
+  return Math.round(Math.random() * 100000) % 4
+}
+function poeBixinho(row, col) {
+  var img = cels[row][col] //$('tr:eq('+row+') td:eq('+col+') img')
+  var a = indiceAleatorio()
+  var sprite = a + '.png'
+  img.attr('src', sprite)
+}
+
+function marcarCombinacao(row, col) {
+  cels[row][col].parent().css('background', '#fff59b')
+}
+
+indexaCelulas()
+linhas.forEach(function(row) {
+  colunas.forEach(function(col) {
+    poeBixinho(row, col)
+    // setTimeout(poeBixinho, 100*(row + col), row, col)
+  })
+})
+console.log('pronto!')
+</script>
+</body>
