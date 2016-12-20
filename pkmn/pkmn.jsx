@@ -107,10 +107,9 @@ class Game extends React.Component {
         // WRONG, cant alter the state!
         //this.state.grid[x][y].char = 'null';
         
-        // this maybe right? we are copying
+        // this maybe right? we are copying (do i even need this?)
         var grid = this.state.grid.slice();
-        // maybe dont need...
-        grid[x] = grid[x].slice();
+        // dont need to... // grid[x] = grid[x].slice();
         grid[x][y] = Object.assign({}, grid[x][y], {char: 'null'});
         // return a new state
         this.setState({grid});
