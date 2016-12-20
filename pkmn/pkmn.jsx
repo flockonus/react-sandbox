@@ -92,6 +92,40 @@ function Score(props) {
     )
 }
 
+// async func, will
+
+class SomethingAsync extends React.Component {
+    constructor() {
+        super()
+        this.state = {status:'nothing'};
+    }
+    loadProfile(ev) {
+        if (!window.fetch) {
+            this.setState({status: 'Browser dont support `fetch` function'});
+        } else {
+            this.setState({status: 'loading...'});
+        }
+        fetch('https://api.github.com/repos/vmg/redcarpet/issues?state=closed')
+            .then(this.loadWin.bind(this), this.loadFail.bind(this));
+    }
+    loadWin(res) {
+        console.log('loadWin', res)
+        this.setState({status: res.status === 200 ? 'loaded! (200)' : `bad response (${res.status})`})
+    }
+    loadFail(err) {
+        console.log('loadFail', err)
+        this.setState({status:'failed!'})
+    }
+    render() {
+        return (
+          <div>
+              <button onClick={()=>this.loadProfile()}>Load Async:</button>
+                <span>{this.state.status}</span>
+          </div>
+        )
+    }
+}
+
 class Game extends React.Component {
     constructor() {
         super();
@@ -106,7 +140,7 @@ class Game extends React.Component {
         // https://facebook.github.io/react/tutorial/tutorial.html#why-immutability-is-important
         // WRONG, cant alter the state!
         //this.state.grid[x][y].char = 'null';
-        
+
         // this maybe right? we are copying (do i even need this?)
         var grid = this.state.grid.slice();
         // dont need to... // grid[x] = grid[x].slice();
@@ -119,6 +153,7 @@ class Game extends React.Component {
             <div>
                 <Board grid={this.state.grid} cellClick={this.onClick.bind(this)}></Board>
                 <Score></Score>
+                <SomethingAsync></SomethingAsync>
             </div>
         )
     }
